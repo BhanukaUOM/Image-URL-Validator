@@ -16,11 +16,19 @@ module.exports = async (url) => {
   const last = pathname.search(/[:?&]/);
   if (last != -1) pathname = pathname.substring(0, last);
   try {
-    const res = await request({
-      method: 'HEAD',
-      uri: url,
-      resolveWithFullResponse: true,
-    });
+    try {
+      var res = await request({
+        method: 'HEAD',
+        uri: url,
+        resolveWithFullResponse: true,
+      });
+    } catch (e) {
+      res = await request({
+        method: 'GET',
+        uri: url,
+        resolveWithFullResponse: true,
+      })
+    }
     if (!res) return false;
     if (!(res.statusCode >= 200 && res.statusCode < 300)) return false;
     const headers = res.headers;
