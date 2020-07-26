@@ -1,0 +1,33 @@
+{
+  "name": "image-url-validator",
+  "version": "0.1.0",
+  "description": "Check if a url is an image using HTTP HEAD",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha index.test.js"
+  },
+  "author": {
+    "name": "Bhanuka Rathnayaka",
+    "email": "bhanuka2017@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhanukauom/image-url-validator"
+  },
+  "bugs": {
+    "url": "https://github.com/bhanukauom/image-url-validator/issues"
+  },
+  "homepage": "https://github.com/bhanukauom/image-url-validator#readme",
+  "keywords": ["validate", "check","url","is","image","img","photo","pic","picture","jpg","jpeg","png","gif"],
+  "dependencies": {
+    "is-image": "^3.0.0",
+    "is-url": "^1.2.1",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "nock": "^12.0.3"
+  }
+}
