@@ -1,0 +1,26 @@
+env:
+  - NODEJS_VER=12.16.2
+
+language: node_js
+node_js: $NODEJS_VER
+warnings_are_errors: true
+
+jobs:
+  include:
+    - stage: Push-Requests
+      script:
+        - echo "CI/CD Starting for $BRANCH"
+        - npm install
+        - npm run test
+        - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+        - npm publish
+      after_success:
+        - echo "Deployed Successfully"
+    - stage: PR
+      if: type = pull_request
+      script:
+        - echo "CI/CD Starting for Development Pull Request"
+        - npm install
+        - npm run test
+      after_success:
+        - echo "CI Successfully"
