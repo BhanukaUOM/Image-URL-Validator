@@ -1,6 +1,6 @@
 var assert = require('assert');
 const nock = require('nock');
-const isImage = require('./index');
+const isImageURL = require('./index');
 
 describe('isImage', () => {
 	describe('Loads image', () => {
@@ -11,7 +11,7 @@ describe('isImage', () => {
 				.reply(200, 'OK', { 'content-type': 'image/png' });
 		});
 		it('identifies image', async () => {
-			const result = await isImage('https://image.test/photo.png');
+			const result = await isImageURL('https://image.test/photo.png');
 			assert(result, 'isImage === true');
 		});
 	});
@@ -22,7 +22,7 @@ describe('isImage', () => {
 				.reply(200, 'OK', { 'content-type': 'text/html' });
 		});
 		it('identifies image', async () => {
-			const result = await isImage('https://image.test/not-photo.png');
+			const result = await isImageURL('https://image.test/not-photo.png');
 			assert(!result, 'isImage === false');
 		});
 	});
