@@ -18,6 +18,7 @@ $ npm install --save image-url-validator
 
 ## Usage
 
+### JavaScript
 ```js
 const isImageURL = require('image-url-validator');
 
@@ -27,6 +28,30 @@ await isImageURL('https://via.placeholder.com/300/09f/fff.png');
 await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator');
 //=> false
 ```
+
+### ES5
+```js
+import isImageURL = require('image-url-validator');
+
+await isImageURL('https://via.placeholder.com/300/09f/fff.png');
+//=> true
+
+await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator');
+//=> false
+```
+
+## Release Notes
+
+> #### v0.2.0
+> 
+> -  Added ES5 Support
+>
+>
+> #### v0.0.1
+> 
+> -  Initial Release
+>
+
 
 ## License
 
