@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request-promise-native');
-const urlParse = require('url').parse;
+const URL = require('url').URL;
 const isUrl = require('is-url');
 const isImage = require('is-image');
 
@@ -10,7 +10,8 @@ module.exports = async (url) => {
   const http = url.lastIndexOf('http');
   if (http != -1) url = url.substring(http);
   if (!isUrl(url)) return isImage(url);
-  let pathname = urlParse(url).pathname;
+  var parsedURL = new URL(url);
+  let pathname = parsedURL.pathname;
   if (!pathname) return false;
   // Remove query string from url
   const last = pathname.search(/[:?&]/);
