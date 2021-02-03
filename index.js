@@ -1,43 +1,74 @@
 'use strict';
 
 const request = require('request-promise-native');
-const URL = require('url').URL;
+const urlParse = require('url').URL;
 const isUrl = require('is-url');
-const isImage = require('is-image');
 
-module.exports = async (url) => {
-  if (!url) return false;
-  const http = url.lastIndexOf('http');
-  if (http != -1) url = url.substring(http);
-  if (!isUrl(url)) return isImage(url);
-  var parsedURL = new URL(url);
-  let pathname = parsedURL.pathname;
-  if (!pathname) return false;
-  // Remove query string from url
-  const last = pathname.search(/[:?&]/);
-  if (last != -1) pathname = pathname.substring(0, last);
-  try {
+function CheckByRequest(url) {
+  return new Promise(function (resolve, reject) {
     try {
-      var res = await request({
+      request({
         method: 'HEAD',
         uri: url,
         resolveWithFullResponse: true,
-      });
-    } catch (e) {
-      res = await request({
-        method: 'GET',
-        uri: url,
-        resolveWithFullResponse: true,
       })
+      .then(function (respose) {
+        resolve(respose);
+      })
+      .catch(function () {
+        request({
+          method: 'GET',
+          uri: url,
+          resolveWithFullResponse: true,
+        })
+        .then(function (respose) {
+          resolve(respose);
+        })
+      });
+    } catch (err) {
+      reject(err);
     }
-    if (!res) return false;
-    if (!(res.statusCode >= 200 && res.statusCode < 300)) return false;
-    const headers = res.headers;
-    if (!headers) return false;
-    const contentType = headers['content-type'];
-    if (!contentType) return false;
-    return contentType.search(/^image\//) != -1;
-  } catch (e) {
-    return false;
-  }
+  });
+}
+
+async function isImageURL (url) {
+  return new Promise(function (resolve) {
+    try {
+      // When URL Not Exists
+      if (!url) {
+        return resolve(false);
+      }
+
+      // If url is not HTTP URL (Local Path)
+      if (!isUrl(url)) {
+        return resolve(false);
+      }
+
+      // Check for URL Pathname Exists
+      var parsedURL = new urlParse(url);
+      let pathname = parsedURL.pathname;
+      if (!pathname) return resolve(false);
+
+      // Check URL Content by Head Reuqest
+      CheckByRequest(url)
+        .then(function (res) {
+          if (!res) return resolve(false);
+          if (!(res.statusCode >= 200 && res.statusCode < 300)) return resolve(false);
+    
+          const headers = res.headers;
+          if (!headers) return resolve(false);
+          const contentType = headers['content-type'];
+          if (!contentType) return resolve(false);
+          return resolve(contentType.search(/^image\//) != -1);
+        })
+        .catch(function () {
+          return resolve(false);
+        })
+    } catch (e) {
+      return resolve(false);
+    }
+  });
 };
+
+exports.isImageURL = isImageURL;
+exports.default = isImageURL;
