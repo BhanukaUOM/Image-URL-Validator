@@ -24,6 +24,9 @@ function CheckByRequest(url) {
         .then(function (respose) {
           resolve(respose);
         })
+      })
+      .catch(function (err) {
+        reject(err);
       });
     } catch (err) {
       reject(err);
