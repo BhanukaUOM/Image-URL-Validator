@@ -70,5 +70,4 @@ async function isImageURL (url) {
   });
 };
 
-exports.isImageURL = isImageURL;
 exports.default = isImageURL;

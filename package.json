@@ -1,6 +1,6 @@
 {
   "name": "image-url-validator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Check if a url is an image using HTTP HEAD",
   "main": "index.js",
   "scripts": {
