@@ -1,6 +1,6 @@
 var assert = require('assert');
 const nock = require('nock');
-const isImageURL = require('./index').default;
+const isImageURL = require('./index');
 
 describe('isImage', () => {
 	describe('Loads image', () => {

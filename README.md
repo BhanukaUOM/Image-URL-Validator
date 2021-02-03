@@ -21,50 +21,28 @@ $ npm install --save image-url-validator
 
 ### JavaScript
 ```js
-const isImageURL = require('image-url-validator').default;
+const isImageURL = require('image-url-validator');
 
-// Promise
-isImageURL('https://via.placeholder.com/300/09f/fff.png').then(is_image => {
-    console.log(is_image) //=> true
-});
+await isImageURL('https://via.placeholder.com/300/09f/fff.png');
+//=> true
 
-isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator').then(is_image => {
-    console.log(is_image) //=> false
-});
-
-// Sync/Await
-await isImageURL('https://via.placeholder.com/300/09f/fff.png'); //=> true
-
-await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator'); //=> false
+await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator');
+//=> false
 ```
 
-
-### ES6
+### ES5
 ```js
-import isImageURL from 'image-url-validator';
+import isImageURL = require('image-url-validator');
 
-// Promise
-isImageURL('https://via.placeholder.com/300/09f/fff.png').then(is_image => {
-    console.log(is_image) //=> true
-});
+await isImageURL('https://via.placeholder.com/300/09f/fff.png');
+//=> true
 
-isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator').then(is_image => {
-    console.log(is_image) //=> false
-});
-
-// Sync/Await
-await isImageURL('https://via.placeholder.com/300/09f/fff.png'); //=> true
-
-await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator'); //=> false
+await isImageURL('https://github.com/BhanukaUOM/Image-Url-Validator');
+//=> false
 ```
 
 ## Release Notes
 
-> #### v0.3.0
-> 
-> -  Added ES6 Support
->
->
 > #### v0.2.0
 > 
 > -  Added ES5 Support
